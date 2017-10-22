@@ -1,24 +1,17 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  This CloudFormation sample template Oracle_Postgres_RDS_For_DMS lab creates a
-  Oracle and Postgres RDS instances in a VPC which can be used to test the
-  database migration using AWS DMS service. You will be billed for the AWS
-  resources used if you create a stack from this template
+  This CloudFormation template is used during the AWS DMS Workshop and creates the following
+    - a new VPC (TODO)
+    - an Oracle RDS instance
+    - a Postgre RDS instance
+  
+  CAUTION -- You will be billed for the AWS resources used if you create a stack from this template, and are responsible for any/all charges made while running these services in your AWS account
 Parameters:
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: 'AWS::EC2::KeyPair::KeyName'
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
-  HttpLocation:
-    Description: >-
-      The IP address range that can be used to access Jupyter notebooks on the
-      EC2 instance
-    Type: String
-    MinLength: '9'
-    MaxLength: '18'
-    Default: 0.0.0.0/0
-    AllowedPattern: '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})'
-    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+    Default: 'workshop'
   EC2InstanceType:
     Description: EC2 instance type
     Type: String
@@ -60,7 +53,7 @@ Parameters:
     AllowedValues:
       - db.t2.medium
     ConstraintDescription: must be a valid Oracle instance type.
-  RDSDBName:
+  PostgresDBName:
     Default: postgres
     Description: Enter PostgreSQL Database name
     Type: String
@@ -70,7 +63,7 @@ Parameters:
     ConstraintDescription: >-
       must begin with a letter and contain a minimum of 4 alphanumeric
       characters.
-  RDSDBUsername:
+  PostgresDBUsername:
     Default: postadmin
     NoEcho: 'false'
     Description: Enter database Admin username for RDS PostgreSQL
@@ -81,7 +74,7 @@ Parameters:
     ConstraintDescription: >-
       must begin with a letter and contain a minimum of 4 alphanumeric
       characters.
-  RDSDBPassword:
+  PostgresDBPassword:
     Default: postadmin123
     NoEcho: 'true'
     Description: Enter password for RDS PostgreSQL Admin user
@@ -90,14 +83,14 @@ Parameters:
     MaxLength: '41'
     AllowedPattern: '[a-zA-Z0-9]*'
     ConstraintDescription: must contain only alphanumeric characters with minimum of 8 characters.
-  RDSInstanceType:
+  PostgresInstanceType:
     Description: RDS PostgreSQL DB instance type
     Type: String
     Default: db.t2.medium
     AllowedValues:
       - db.t2.medium
     ConstraintDescription: must be a valid RDS PostgreSQL instance types.
-  RDSDBStorage:
+  PostgresDBStorage:
     Default: '100'
     NoEcho: 'false'
     Description: Enter storage for PostgreSQL DB in GB
@@ -116,19 +109,13 @@ Metadata:
           - OracleDBStorage
           - OracleInstanceType
       - Label:
-          default: Target RDS PostgreSQL Database Configuration
+          default: Target PostgreSQL Database Configuration
         Parameters:
-          - RDSDBName
-          - RDSDBUsername
-          - RDSDBPassword
-          - RDSInstanceType
-          - RDSDBStorage
-      - Label:
-          default: MongoDB Configuration
-        Parameters:
-          - KeyName
-          - HttpLocation
-          - EC2InstanceType
+          - PostgresDBName
+          - PostgresDBUsername
+          - PostgresDBPassword
+          - PostgresInstanceType
+          - PostgresDBStorage
 Mappings:
   OracleEngineVersion:
     us-east-1:
@@ -163,7 +150,7 @@ Mappings:
     ap-northeast-1:
       snapid: >-
         arn:aws:rds:ap-northeast-1:408917696499:snapshot:apac-dms-workshop-oracle
-  RDSEngineVersion:
+  PostgresEngineVersion:
     us-east-1:
       ver: 9.6.1
     us-east-2:
@@ -234,7 +221,6 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - 'dynamodb:*'
                   - 's3:*'
                   - 'ec2:DescribeSubnets'
                   - 'ec2:DescribeVpcs'
@@ -331,7 +317,7 @@ Resources:
           FromPort: '1521'
           ToPort: '1521'
           CidrIp: 10.0.0.0/24
-  RDSVPCSecurityGroup:
+  PostgresVPCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Security group for RDS PostgreSQL Instances.
@@ -370,21 +356,21 @@ Resources:
       Tags:
         - Key: Application
           Value: !Ref 'AWS::StackId'
-  RDSDBParameterGroup:
+  PostgresDBParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
     Properties:
       Description: PostgreSQL Parameter Group  for DMS Testing
       Family: postgres9.6
       Parameters:
         session_replication_role: replica
-  RDSDB:
+  PostgresDB:
     Type: 'AWS::RDS::DBInstance'
     Properties:
-      DBName: !Ref RDSDBName
-      AllocatedStorage: !Ref RDSDBStorage
-      MasterUsername: !Ref RDSDBUsername
-      MasterUserPassword: !Ref RDSDBPassword
-      DBInstanceClass: !Ref RDSInstanceType
+      DBName: !Ref PostgresDBName
+      AllocatedStorage: !Ref PostgresDBStorage
+      MasterUsername: !Ref PostgresDBUsername
+      MasterUserPassword: !Ref PostgresDBPassword
+      DBInstanceClass: !Ref PostgresInstanceType
       Engine: postgres
       EngineVersion: !FindInMap 
         - RDSEngineVersion
@@ -398,9 +384,9 @@ Resources:
       MultiAZ: 'false'
       DBSubnetGroupName: !Ref MyDBSubnetGroup
       VPCSecurityGroups:
-        - !Ref RDSVPCSecurityGroup
+        - !Ref PostgresVPCSecurityGroup
       StorageType: gp2
-      DBParameterGroupName: !Ref RDSDBParameterGroup
+      DBParameterGroupName: !Ref PostgresDBParameterGroup
       Tags:
         - Key: Application
           Value: !Ref 'AWS::StackId'
