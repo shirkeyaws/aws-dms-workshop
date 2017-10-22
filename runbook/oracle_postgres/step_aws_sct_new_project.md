@@ -30,6 +30,10 @@ Enter the following in the next dialog displayed:
 - **Oracle SID**: (enter database name, default is Oracle)
 - **User name**: dbmaster
 - **Password**: (enter the password for your Oracle instance)
+- **Oracle Driver Path**: (see notes below)
+    - Local: when running AWS SCT locally, then the JDBC jar file for Oracle must be selected from where it was downloaded to earlier
+    - DMS Workshop AppStream 2.0 Clients: the path is **C:\\Drivers** as shown below: 
+    - ![AWS SCT New Project Wizard - Driver Location on AppStream](images/step/aws_sct_new_project/appstream-jdbc-dir.png)
 
 When finished, click **Test Connection**. If you receive a **Connection Successful** message, then proceed, otherwise reconfirm the values you have entered earlier and try again.
 

@@ -23,7 +23,6 @@ Parameters:
       must begin with a letter and contain a minimum of 4 alphanumeric
       characters.
   OracleDBPassword:
-    Default: oraadmin123
     NoEcho: 'true'
     Description: 'Enter password for the oracle admin user: dbmaster'
     Type: String
@@ -68,7 +67,6 @@ Parameters:
       must begin with a letter and contain a minimum of 4 alphanumeric
       characters.
   PostgresDBPassword:
-    Default: postadmin123
     NoEcho: 'true'
     Description: Enter password for RDS PostgreSQL Admin user
     Type: String
@@ -262,7 +260,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: '1521'
           ToPort: '1521'
-          CidrIp: 10.0.0.0/24
+          CidrIp: 0.0.0.0/0
   PostgresVPCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
@@ -273,7 +271,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: '5432'
           ToPort: '5432'
-          CidrIp: 10.0.0.0/24
+          CidrIp: 0.0.0.0/0
   OracleDB:
     Type: 'AWS::RDS::DBInstance'
     Properties:
@@ -342,6 +340,9 @@ Outputs:
     Value: !Ref 'AWS::StackName'
   Regionname:
     Value: !Ref 'AWS::Region'
+  VPC:
+    Description: Newly created VPC for this workshop
+    Value: !Ref VPC
   OracleJDBCConnectionString:
     Description: JDBC connection string for Oracle database
     Value: !Join 
@@ -356,6 +357,12 @@ Outputs:
           - Endpoint.Port
         - ':'
         - !Ref OracleDBName
+  OracleDBServerName:
+    Description: Server name / URL for Oracle server
+    Value: !GetAtt OracleDB.Endpoint.Address
+  OracleDBPort:
+    Description: Server port for Oracle server
+    Value: !GetAtt OracleDB.Endpoint.Port
   OracleDBUsername:
     Description: Oracle username (preconfigured)
     Value: "dbmaster"
@@ -376,8 +383,17 @@ Outputs:
           - Endpoint.Port
         - /
         - !Ref PostgresDBName
+  PostgresDBServerName:
+    Description: Name / URL generated for the Postgres Server
+    Value: !GetAtt PostgresDB.Endpoint.Address
+  PostgresDBServerPort:
+    Description: Port generated for the Postgres Server
+    Value: !GetAtt PostgresDB.Endpoint.Port
+  PostgresDBName: 
+    Description: Database name (default)
+    Value: !Ref PostgresDBName
   PostgresDBUsername:
-    Description: Postgres password as provided in CloudFormation params
+    Description: Postgres username as provided in CloudFormation params
     Value: !Ref PostgresDBUsername 
   PostgresDBPassword: 
     Description: Postgres password as provided in CloudFormation params
