@@ -46,4 +46,8 @@ If right-click is not available, then select the target database name and select
 
 This will apply all those converted objects in the PostgreSQL target.
 
-> The above steps will convert all your Oracle objects into PostgreSQL objects. Objects which could not be converted automatically must be taken care of manually after migration at a later time.
+---
+
+The above steps will convert all your Oracle objects into PostgreSQL objects. Objects which could not be converted automatically must be taken care of manually after migration at a later time. Now you are ready to create the AWS DMS components.
+
+---

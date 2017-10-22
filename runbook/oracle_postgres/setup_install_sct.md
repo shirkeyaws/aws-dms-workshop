@@ -38,6 +38,8 @@ Make the following changes to the Global Settings:
 - For the **PostgreSQL Driver Path**, select the location of your local PostgresSQL jar file
 - Click **OK** to Proceed
 
+TODO: remove the following as permissions are completely open now
+
 ### Permit Local Access to Source/Target Databases
 
 You will now modify both Source and Target database permissions so that you can connect to those databases with the AWS SCT locally. 
@@ -47,6 +49,7 @@ To do so, you will modify the Security Groups attached to the databases. The fol
 > <http://amzn.to/aws-tokyo-sg-workshop> (=> <https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#SecurityGroups:search=workshop;sort=groupId>)
 
 The list should look similar to the following, with two different SGs created by the earlier CloudFormation template, one for Oracle and the other for PostgreSQL:
+
 
 ![AWS Schema Conversion Tool: List of Security Groups](images/setup/aws_sct/sg-list.png)
 

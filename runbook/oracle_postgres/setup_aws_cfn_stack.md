@@ -5,7 +5,7 @@ In this step, you will launch a AWS CloudFormation template that will setup the 
 - Source Database: Amazon RDS Oracle (this database will be pre-populated with sample database installed from <https://github.com/awslabs/aws-database-migration-samples>)
 - Target Database: Amazon RDS PostgreSQL
 
-> **CAUTION: The resources that you will be spinning up will continue to run until the CloudFormation stack is deleted or the individual resources are shutdown -- the steps for teardown are located in this document at [Teardown: AWS Cloudformation Stack](#teardown-aws-cloudformation-stack)**
+> **CAUTION: The resources created automatically with this CloudFormation template will continue to run until the CloudFormation stack is deleted or the individual resources are shutdown -- the steps for teardown are located in this document at [Teardown: AWS Cloudformation Stack](#teardown-aws-cloudformation-stack)**
 
 To launch this template, use the following link:
 
@@ -57,7 +57,7 @@ Click the **Create** button on the bottom of the page to continue.
 
 ![AWS CloudFormation Stack Review: Creation](images/setup/aws_cfn_stack/create.png)
 
-**All AWS resources associated with this workshop lab will now be created immediately, and billing will proceed until this CloudFormation stack is deleted or those resources are individually stopped/terminated -- the steps for teardown are located in this document at [Teardown: AWS Cloudformation Stack](#teardown-aws-cloudformation-stack)**
+**AWS resources associated with this workshop lab will now be automatically created immediately, and billing will proceed until this CloudFormation stack is deleted or those resources are individually stopped/terminated -- the steps for teardown are located in this document at [Teardown: AWS Cloudformation Stack](#teardown-aws-cloudformation-stack)**
 
 ### AWS CloudFormation Stack: List Stacks
 
