@@ -1,0 +1,442 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  This CloudFormation sample template Oracle_Postgres_RDS_For_DMS lab creates a
+  Oracle and Postgres RDS instances in a VPC which can be used to test the
+  database migration using AWS DMS service. You will be billed for the AWS
+  resources used if you create a stack from this template
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  HttpLocation:
+    Description: >-
+      The IP address range that can be used to access Jupyter notebooks on the
+      EC2 instance
+    Type: String
+    MinLength: '9'
+    MaxLength: '18'
+    Default: 0.0.0.0/0
+    AllowedPattern: '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})'
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  EC2InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.medium
+    AllowedValues:
+      - t2.medium
+    ConstraintDescription: must be a valid EC2 instance type.
+  OracleDBName:
+    Default: ORCL
+    Description: Enter Oracle Database name
+    Type: String
+    MinLength: '4'
+    MaxLength: '63'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: >-
+      must begin with a letter and contain a minimum of 4 alphanumeric
+      characters.
+  OracleDBPassword:
+    Default: oraadmin123
+    NoEcho: 'true'
+    Description: 'Enter password for the oracle admin user: dbmaster'
+    Type: String
+    MinLength: '8'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters with minimum of 8 characters.
+  OracleDBStorage:
+    Default: '100'
+    NoEcho: 'false'
+    Description: Enter storage for Oracle DB in GB
+    Type: Number
+    MaxValue: '6000'
+    MinValue: '100'
+    ConstraintDescription: must contain only numberic and min 100gb less than 6000 GB.
+  OracleInstanceType:
+    Description: Oracle DB instance type
+    Type: String
+    Default: db.t2.medium
+    AllowedValues:
+      - db.t2.medium
+    ConstraintDescription: must be a valid Oracle instance type.
+  RDSDBName:
+    Default: postgres
+    Description: Enter PostgreSQL Database name
+    Type: String
+    MinLength: '4'
+    MaxLength: '63'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: >-
+      must begin with a letter and contain a minimum of 4 alphanumeric
+      characters.
+  RDSDBUsername:
+    Default: postadmin
+    NoEcho: 'false'
+    Description: Enter database Admin username for RDS PostgreSQL
+    Type: String
+    MinLength: '4'
+    MaxLength: '16'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: >-
+      must begin with a letter and contain a minimum of 4 alphanumeric
+      characters.
+  RDSDBPassword:
+    Default: postadmin123
+    NoEcho: 'true'
+    Description: Enter password for RDS PostgreSQL Admin user
+    Type: String
+    MinLength: '8'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters with minimum of 8 characters.
+  RDSInstanceType:
+    Description: RDS PostgreSQL DB instance type
+    Type: String
+    Default: db.t2.medium
+    AllowedValues:
+      - db.t2.medium
+    ConstraintDescription: must be a valid RDS PostgreSQL instance types.
+  RDSDBStorage:
+    Default: '100'
+    NoEcho: 'false'
+    Description: Enter storage for PostgreSQL DB in GB
+    Type: Number
+    MaxValue: '6000'
+    MinValue: '10'
+    ConstraintDescription: must contain only numberic and less than 6000 GB.
+Metadata:
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+      - Label:
+          default: Source Oracle Database Configuration
+        Parameters:
+          - OracleDBName
+          - OracleDBPassword
+          - OracleDBStorage
+          - OracleInstanceType
+      - Label:
+          default: Target RDS PostgreSQL Database Configuration
+        Parameters:
+          - RDSDBName
+          - RDSDBUsername
+          - RDSDBPassword
+          - RDSInstanceType
+          - RDSDBStorage
+      - Label:
+          default: MongoDB Configuration
+        Parameters:
+          - KeyName
+          - HttpLocation
+          - EC2InstanceType
+Mappings:
+  OracleEngineVersion:
+    us-east-1:
+      ver: 12.1.0.2.v6
+    us-east-2:
+      ver: 12.1.0.2.v6
+    us-west-1:
+      ver: 12.1.0.2.v6
+    us-west-2:
+      ver: 12.1.0.2.v6
+    ap-northeast-1:
+      ver: 12.1.0.2.v6
+    ap-northeast-2:
+      ver: 12.1.0.2.v6
+    ap-southeast-1:
+      ver: 12.1.0.2.v6
+    ap-southeast-2:
+      ver: 12.1.0.2.v6
+    eu-west-1:
+      ver: 12.1.0.2.v6
+    eu-central-1:
+      ver: 12.1.0.2.v6
+    sa-east-1:
+      ver: 12.1.0.2.v6
+    us-gov-west-1:
+      ver: 12.1.0.2.v6
+    ap-south-1:
+      ver: 12.1.0.2.v6
+    cn-north-1:
+      ver: 12.1.0.2.v6
+  OracleSnapshotId:
+    ap-northeast-1:
+      snapid: >-
+        arn:aws:rds:ap-northeast-1:408917696499:snapshot:apac-dms-workshop-oracle
+  RDSEngineVersion:
+    us-east-1:
+      ver: 9.6.1
+    us-east-2:
+      ver: 9.6.1
+    us-west-1:
+      ver: 9.6.1
+    us-west-2:
+      ver: 9.6.1
+    ap-northeast-1:
+      ver: 9.6.1
+    ap-northeast-2:
+      ver: 9.6.1
+    ap-southeast-1:
+      ver: 9.6.1
+    ap-southeast-2:
+      ver: 9.6.1
+    eu-west-1:
+      ver: 9.6.1
+    eu-central-1:
+      ver: 9.6.1
+    sa-east-1:
+      ver: 9.6.1
+    us-gov-west-1:
+      ver: 9.6.1
+    ap-south-1:
+      ver: 9.6.1
+    cn-north-1:
+      ver: 9.6.1
+Resources:
+  EC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: !Ref EC2InstanceType
+      SecurityGroups:
+        - !Ref InstanceSecurityGroup
+      KeyName: !Ref KeyName
+      ImageId: ami-f9bea69e
+      IamInstanceProfile: !Ref InstanceProfile
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  InstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable HTTP access via port 80
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: !Ref HttpLocation
+  InstanceRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: ApplicationPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:*'
+                  - 's3:*'
+                  - 'ec2:DescribeSubnets'
+                  - 'ec2:DescribeVpcs'
+                  - 'dms:*'
+                Resource: '*'
+  InstanceProfile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      Path: /
+      Roles:
+        - !Ref InstanceRole
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+        - Key: Name
+          Value: !Ref 'AWS::StackName'
+  DBSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.0.0/26
+      AvailabilityZone: !Select 
+        - '0'
+        - !GetAZs ''
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  DBSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.0.64/26
+      AvailabilityZone: !Select 
+        - '1'
+        - !GetAZs ''
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  RouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  Route:
+    Type: 'AWS::EC2::Route'
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  SubnetRouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref DBSubnet1
+      RouteTableId: !Ref RouteTable
+  SubnetRouteTableAssociation1:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref DBSubnet2
+      RouteTableId: !Ref RouteTable
+  MyDBSubnetGroup:
+    Type: 'AWS::RDS::DBSubnetGroup'
+    Properties:
+      DBSubnetGroupDescription: Subnet available for the DMS Demo RDS DB Instance
+      SubnetIds:
+        - !Ref DBSubnet1
+        - !Ref DBSubnet2
+  OraVPCSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for Oracle Instance.
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '1521'
+          ToPort: '1521'
+          CidrIp: 10.0.0.0/24
+  RDSVPCSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for RDS PostgreSQL Instances.
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '5432'
+          ToPort: '5432'
+          CidrIp: 10.0.0.0/24
+  OracleDB:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBName: !Ref OracleDBName
+      AllocatedStorage: !Ref OracleDBStorage
+      MasterUserPassword: !Ref OracleDBPassword
+      DBInstanceClass: !Ref OracleInstanceType
+      Engine: oracle-ee
+      EngineVersion: !FindInMap 
+        - OracleEngineVersion
+        - !Ref 'AWS::Region'
+        - ver
+      LicenseModel: bring-your-own-license
+      PubliclyAccessible: 'true'
+      AvailabilityZone: !GetAtt 
+        - DBSubnet1
+        - AvailabilityZone
+      MultiAZ: 'false'
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref OraVPCSecurityGroup
+      DBSnapshotIdentifier: !FindInMap 
+        - OracleSnapshotId
+        - !Ref 'AWS::Region'
+        - snapid
+      StorageType: gp2
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  RDSDBParameterGroup:
+    Type: 'AWS::RDS::DBParameterGroup'
+    Properties:
+      Description: PostgreSQL Parameter Group  for DMS Testing
+      Family: postgres9.6
+      Parameters:
+        session_replication_role: replica
+  RDSDB:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBName: !Ref RDSDBName
+      AllocatedStorage: !Ref RDSDBStorage
+      MasterUsername: !Ref RDSDBUsername
+      MasterUserPassword: !Ref RDSDBPassword
+      DBInstanceClass: !Ref RDSInstanceType
+      Engine: postgres
+      EngineVersion: !FindInMap 
+        - RDSEngineVersion
+        - !Ref 'AWS::Region'
+        - ver
+      LicenseModel: postgresql-license
+      PubliclyAccessible: 'true'
+      AvailabilityZone: !GetAtt 
+        - DBSubnet1
+        - AvailabilityZone
+      MultiAZ: 'false'
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref RDSVPCSecurityGroup
+      StorageType: gp2
+      DBParameterGroupName: !Ref RDSDBParameterGroup
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+Outputs:
+  StackName:
+    Value: !Ref 'AWS::StackName'
+  Regionname:
+    Value: !Ref 'AWS::Region'
+  OracleJDBCConnectionString:
+    Description: JDBC connection string for Oracle database
+    Value: !Join 
+      - ''
+      - - 'jdbc:oracle:thin:@'
+        - !GetAtt 
+          - OracleDB
+          - Endpoint.Address
+        - ':'
+        - !GetAtt 
+          - OracleDB
+          - Endpoint.Port
+        - ':'
+        - !Ref OracleDBName
+  RDSJDBCConnectionString:
+    Description: JDBC connection string for RDS PostgreSQL database
+    Value: !Join 
+      - ''
+      - - 'jdbc:postgresql://'
+        - !GetAtt 
+          - RDSDB
+          - Endpoint.Address
+        - ':'
+        - !GetAtt 
+          - RDSDB
+          - Endpoint.Port
+        - /
+        - !Ref RDSDBName
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value: !Ref EC2Instance
