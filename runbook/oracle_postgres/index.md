@@ -50,6 +50,9 @@ setup_jdbc_driver.md
 setup_install_sct.md
 setup_install_db_mgmt.md
 steps.md
+step_aws_sct_new_project.md
+step_aws_sct_convert_schema.md
+step_aws_dms_initial_load.md
 teardown.md
 teardown_aws_cfn_stack.md
 ```
