@@ -17,7 +17,7 @@ RM=/bin/rm -f
 
 PANDOC=/usr/bin/env pandoc
 
-PANDOC_OPTIONS=--smart --standalone --filter pandoc-include
+PANDOC_OPTIONS=--smart --standalone  --latex-engine=xelatex --filter pandoc-include
 
 PANDOC_PDF_OPTIONS=--template ../shared/default.latex
 

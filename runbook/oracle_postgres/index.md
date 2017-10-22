@@ -8,12 +8,13 @@ abstract: "This document is © 2017, Amazon Web Services, Inc. or its Affiliates
 Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
 
 PostgreSQL is a registered trademark of the PostgreSQL Community Association of Canada."
-#numbersections: yes
+numbersections: yes
+numberoffset: 1
 papersize: A4
 mainfont: Amazon Ember
 documentclass: article
 geometry: margin=2cm
-date: "Revised: Oct 21 2017"
+date: "Revised: 2017.10.22"
 toc: true
 lot: true
 lof: true
@@ -33,16 +34,22 @@ bookmarks: true
 pdfpagemode: FullScreen
 header-includes:
     - \usepackage{graphicx}
-    - \graphicspath{{../shared/}}
+    - \graphicspath{{../shared/}{images/}}
 ...
 
 ```include
-objective.md
+intro.md
+intro_objective.md
+intro_dms.md
+intro_sct.md
+setup.md
 setup_key_pair.md
 setup_aws_cfn_stack.md
 setup_access_appstream.md
+setup_jdbc_driver.md
 setup_install_sct.md
 setup_install_db_mgmt.md
-setup_jdbc_driver.md
+steps.md
+teardown.md
 teardown_aws_cfn_stack.md
 ```

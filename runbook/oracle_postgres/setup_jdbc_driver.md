@@ -1,6 +1,4 @@
-\newpage
-
-## Setup: JDBC Drivers
+## Setup JDBC Drivers
 
 If you have chosen to locally install the AWS Schema Conversion Tool and your preferred database management tool, you will also need to download the database-specific JDBC drivers to connect to the database resources in this workshop. These JDBC drivers can be found at the following links:
 

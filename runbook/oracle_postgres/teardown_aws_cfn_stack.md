@@ -1,3 +1,1 @@
-\newpage
-
-## Teardown: AWS CloudFormation Stack
+## Teardown AWS CloudFormation Stack

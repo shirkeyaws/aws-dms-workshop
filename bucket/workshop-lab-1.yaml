@@ -12,13 +12,6 @@ Parameters:
     Type: 'AWS::EC2::KeyPair::KeyName'
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
     Default: 'workshop'
-  EC2InstanceType:
-    Description: EC2 instance type
-    Type: String
-    Default: t2.medium
-    AllowedValues:
-      - t2.medium
-    ConstraintDescription: must be a valid EC2 instance type.
   OracleDBName:
     Default: ORCL
     Description: Enter Oracle Database name
@@ -101,6 +94,10 @@ Parameters:
 Metadata:
   'AWS::CloudFormation::Interface':
     ParameterGroups:
+      - Label: 
+          default: Key Pair
+        Parameters:
+          - KeyName
       - Label:
           default: Source Oracle Database Configuration
         Parameters:
@@ -258,6 +255,7 @@ Resources:
   OraVPCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
+      Name: "workshop-oracle-sg"
       GroupDescription: Security group for Oracle Instance.
       VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -268,6 +266,7 @@ Resources:
   PostgresVPCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
+      Name: "workshop-postgres-sg"
       GroupDescription: Security group for RDS PostgreSQL Instances.
       VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -357,6 +356,12 @@ Outputs:
           - Endpoint.Port
         - ':'
         - !Ref OracleDBName
+  OracleDBUsername:
+    Description: Oracle username (preconfigured)
+    Value: "dbmaster"
+  OracleDBPassword: 
+    Description: Oracle password as provided in CloudFormation params
+    Value: !Ref OracleDBPassword
   PostgresJDBCConnectionString:
     Description: JDBC connection string for PostgreSQL database
     Value: !Join 
@@ -371,3 +376,9 @@ Outputs:
           - Endpoint.Port
         - /
         - !Ref PostgresDBName
+  PostgresDBUsername:
+    Description: Postgres password as provided in CloudFormation params
+    Value: !Ref PostgresDBUsername 
+  PostgresDBPassword: 
+    Description: Postgres password as provided in CloudFormation params
+    Value: !Ref PostgresDBPassword

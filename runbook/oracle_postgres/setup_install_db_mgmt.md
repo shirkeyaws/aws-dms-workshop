@@ -1,6 +1,6 @@
 \newpage
 
-## Setup: SQL Database Management Tool (Optional)
+## Setup SQL database management tools (Optional)
 
 In this step, we will install a database management tool of your choice locally.
 
