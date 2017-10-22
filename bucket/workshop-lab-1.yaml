@@ -180,58 +180,6 @@ Mappings:
     cn-north-1:
       ver: 9.6.1
 Resources:
-  EC2Instance:
-    Type: 'AWS::EC2::Instance'
-    Properties:
-      InstanceType: !Ref EC2InstanceType
-      SecurityGroups:
-        - !Ref InstanceSecurityGroup
-      KeyName: !Ref KeyName
-      ImageId: ami-f9bea69e
-      IamInstanceProfile: !Ref InstanceProfile
-      Tags:
-        - Key: Application
-          Value: !Ref 'AWS::StackId'
-  InstanceSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription: Enable HTTP access via port 80
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: '80'
-          ToPort: '80'
-          CidrIp: !Ref HttpLocation
-  InstanceRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - ec2.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
-      Path: /
-      Policies:
-        - PolicyName: ApplicationPolicy
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - 's3:*'
-                  - 'ec2:DescribeSubnets'
-                  - 'ec2:DescribeVpcs'
-                  - 'dms:*'
-                Resource: '*'
-  InstanceProfile:
-    Type: 'AWS::IAM::InstanceProfile'
-    Properties:
-      Path: /
-      Roles:
-        - !Ref InstanceRole
   VPC:
     Type: 'AWS::EC2::VPC'
     Properties:
@@ -373,7 +321,7 @@ Resources:
       DBInstanceClass: !Ref PostgresInstanceType
       Engine: postgres
       EngineVersion: !FindInMap 
-        - RDSEngineVersion
+        - PostgresEngineVersion
         - !Ref 'AWS::Region'
         - ver
       LicenseModel: postgresql-license
@@ -409,20 +357,17 @@ Outputs:
           - Endpoint.Port
         - ':'
         - !Ref OracleDBName
-  RDSJDBCConnectionString:
-    Description: JDBC connection string for RDS PostgreSQL database
+  PostgresJDBCConnectionString:
+    Description: JDBC connection string for PostgreSQL database
     Value: !Join 
       - ''
       - - 'jdbc:postgresql://'
         - !GetAtt 
-          - RDSDB
+          - PostgresDB
           - Endpoint.Address
         - ':'
         - !GetAtt 
-          - RDSDB
+          - PostgresDB
           - Endpoint.Port
         - /
-        - !Ref RDSDBName
-  InstanceId:
-    Description: InstanceId of the newly created EC2 instance
-    Value: !Ref EC2Instance
+        - !Ref PostgresDBName
