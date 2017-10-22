@@ -255,7 +255,7 @@ Resources:
   OraVPCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      Name: "workshop-oracle-sg"
+      GroupName: "workshop-oracle-sg"
       GroupDescription: Security group for Oracle Instance.
       VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -266,7 +266,7 @@ Resources:
   PostgresVPCSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      Name: "workshop-postgres-sg"
+      GroupName: "workshop-postgres-sg"
       GroupDescription: Security group for RDS PostgreSQL Instances.
       VpcId: !Ref VPC
       SecurityGroupIngress:
