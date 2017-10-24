@@ -2,7 +2,7 @@
 
 In this step, you will install the AWS Schema Conversion Tool locally.
 
-> *For those participants not wishing to install the AWS Schema Conversion Tool locally, you can use the Schema Conversion Tool via Amazon AppStream 2.0 resources that will have been temporarily provisioned for your use during this lab. See [Setup: Accessing Amazon AppStream 2.0 Tools](#setup-accessing-amazon-appstream-tools)*
+> *For those participants not wishing to install the AWS Schema Conversion Tool locally, you can use the Schema Conversion Tool via Amazon AppStream 2.0 resources that will have been temporarily provisioned for your use during this lab. See [Setup: Accessing Amazon AppStream 2.0 Tools](#setup-amazon-appstream-tools)*
 
 ### AWS SCT Download
 

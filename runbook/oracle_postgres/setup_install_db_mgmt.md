@@ -4,7 +4,7 @@
 
 In this step, we will install a database management tool of your choice locally.
 
-> *For those participants not wishing to install a database management tool locally, you can use the DBeaver tool via Amazon AppStream 2.0 resources that will have been provisioned for you temporarily. See [Setup: Accessing Amazon AppStream 2.0 Tools](#setup-access-appstream-tools)*
+> *For those participants not wishing to install a database management tool locally, you can use the DBeaver tool via Amazon AppStream 2.0 resources that will have been provisioned for you temporarily. See [Setup: Accessing Amazon AppStream 2.0 Tools](#setup-amazon-appstream-tools)*
 
 Some popular and free tools include:
 

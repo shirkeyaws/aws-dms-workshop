@@ -23,7 +23,12 @@ You should now see the following:
 
 ### AWS CloudFormation Stack Settings
 
-This page displays the settings and parameters for the CloudFormation stack. **The default settings are recommended, and no changes are required to this page.**
+This page displays the settings and parameters for the CloudFormation stack.
+
+- For **KeyPair**, you will need to confirm your Key Pair created earlier (in our example, it is labeled workshop)
+- For **OracleDBPassword** and **PostgresDBPassword**, you will need to enter unique, random passwords. 
+
+> **CAUTION: These database servers will be public facing with no restrictions on source IPv4 address to access them during the life of this CFN template, so please take care to use passwords of sufficient complexity.**
 
 ![AWS CloudFormation: Settings Overview](images/setup/aws_cfn_stack/params-all.png)
 
@@ -51,7 +56,7 @@ Click the **Next** button on the bottom of the page to continue.
 
 ### AWS CloudFormation Stack Review
 
-![AWS CloudFormation Stack: Review](images/setup/aws_cfn_stack/options-all.png)
+![AWS CloudFormation Stack: Review](images/setup/aws_cfn_stack/review-all.png)
 
 Click the **Create** button on the bottom of the page to continue.
 

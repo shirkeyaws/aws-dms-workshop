@@ -23,11 +23,10 @@ Click **Next** to continue
 
 Enter the following in the next dialog displayed:
 
-
 - **Type**:	SID
 - **Server Name**: (enter DNS name of your Oracle instance)
 - **Server Port**: 1521
-- **Oracle SID**: (enter database name, default is Oracle)
+- **Oracle SID**: (enter database name, default is ORCL)
 - **User name**: dbmaster
 - **Password**: (enter the password for your Oracle instance)
 - **Oracle Driver Path**: (see notes below)
@@ -50,6 +49,19 @@ From the Select Schema step, select **DBMASTER** as the Source Schema
 ![AWS SCT New Project Wizard - Database Migration Assessment](images/step/aws_sct_new_project/run-dma.png)
 
 ### New Project Wizard - Select Target
+
+In the next dialog for Target, specify the following:
+
+- **Target Database Engine**: Amazon RDS for PostgreSQL
+- **Server Name**: (enter DNS name of your Postgres instance)
+- **Server Port**: 5432
+- **Oracle SID**: (enter database name, default is **postgres**)
+- **User name**: (enter user name, default is **postadmin**)
+- **Password**: (enter the password for your Postgres instance)
+- **Oracle Driver Path**: (see notes below)
+    - Local: when running AWS SCT locally, then the JDBC jar file for Postgres must be selected from where it was downloaded to earlier
+    - DMS Workshop AppStream 2.0 Clients: the path is **C:\\Drivers** as shown below: 
+    - ![AWS SCT New Project Wizard - Driver Location on AppStream](images/step/aws_sct_new_project/appstream-jdbc-dir.png)
 
 ![AWS SCT New Project Wizard - Select Target](images/step/aws_sct_new_project/select-target.png)
 

@@ -14,7 +14,7 @@ papersize: A4
 mainfont: Amazon Ember
 documentclass: article
 geometry: margin=2cm
-date: "Revised: 2017.10.22"
+date: "Revised: 2017.10.24"
 toc: true
 lot: true
 lof: true
@@ -48,7 +48,7 @@ intro_sct.md
 setup.md
 setup_key_pair.md
 setup_aws_cfn_stack.md
-setup_access_appstream.md
+setup_appstream.md
 setup_jdbc_driver.md
 setup_install_sct.md
 setup_install_db_mgmt.md
