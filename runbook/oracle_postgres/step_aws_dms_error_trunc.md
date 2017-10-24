@@ -6,20 +6,19 @@ The following are common errors and fixes
 
 ![AWS DMS Errors - Truncate ](images/step/aws_dms_troubleshoot/error-truncate.png)
 
-
-#### Why am I seeing this error?
+#### Why am I seeing this error
 
 The initial load in DMS is done table by table which means that the target tables cannot have active foreign key constraints. As we are using SCT to convert Oracle source objects into PostgreSQL target objects, all secondary objects were created as part of the process. This means that we would need to disable all foreign key constraints on the target for the initial full load to be successful. Foreign keys or referential integrity constraints in PostgreSQL are implemented using triggers. One way to disable foreign keys is to disable all triggers temporarily from the instance and do the loads.
 
 One of the ways to do this is to use the session_replication_role parameter in PostgreSQL. Triggers also have a state in PostgreSQL (Origin, replica, always or disabled). When the session_replication_role parameter is set to replica, only triggers of the state replica will be active and are fired when called. If not, the triggers remain inactive. We have already setup the parameter group on the target to set this role to replica which means all foreign key constraints (innately triggers in the origin state) will not be active. However, PostgreSQL has a failsafe mechanism of not letting a table truncate even with this role set. As we are using prepopulated tables on the target and cannot truncate the table, we need to use do_nothing for the target table prep mode. 
 
-More details available in this blog post: <http://blog.endpoint.com/2015/01/postgressessionreplication-role.html>
+More details available in this blog post: <http://blog.endpoint.com/2015/01/postgres-sessionreplication-role.html>
 
-#### How do I solve this? 
+#### How do I solve this
 
 Delete the CloudWatch Log stream for **dms-workshop-task** – this will give you a clean environment, you can get there through the following link:
 
-http://amzn.to/aws-dms-workshop-log-streams (=> <https://ap-northeast-1.console.aws.amazon.com/cloudwatch/home?region=ap-northeast-1#logStream:group=dms-tasks-dms-workshop-instance;streamFilter=typeLogStreamPrefix>)
+<http://amzn.to/aws-dms-workshop-log-streams> (=> <https://ap-northeast-1.console.aws.amazon.com/cloudwatch/home?region=ap-northeast-1#logStream:group=dms-tasks-dms-workshop-instance;streamFilter=typeLogStreamPrefix>)
 
 Select the CloudWatch Log Stream, then click the **Delete Log Stream** button:
 

@@ -34,17 +34,31 @@ Enter the following data:
 - **Max LOB size (kb)**: 32
 - **Enable logging**: selected/checked
 
-#### AWS DMS Tasks - Add Selections
+\newpage
 
-![AWS DMS Tasks - Create Task (Table Mappings Selection) ](images/step/aws_dms_tasks/create-task-3.png)
+#### AWS DMS Tasks - Add Selection Criteria
 
-#### AWS DMS Tasks - Add Transformations
+![AWS DMS Tasks - Create Task (Table Mappings Selection Criteria) ](images/step/aws_dms_tasks/create-task-3.png)
 
-![AWS DMS Tasks - Create Task (Table Mappings Transform #1) ](images/step/aws_dms_tasks/create-task-4.png)
+\newpage
 
-![AWS DMS Tasks - Create Task (Table Mappings Transform #2) ](images/step/aws_dms_tasks/create-task-5.png)
+#### AWS DMS Tasks - Add First Transformation
 
-![AWS DMS Tasks - Create Task (Table Mappings Transform #3) ](images/step/aws_dms_tasks/create-task-6.png)
+![AWS DMS Tasks - Create Task (Table Mappings Transform 1) ](images/step/aws_dms_tasks/create-task-4.png)
+
+\newpage
+
+#### AWS DMS Tasks - Add Second Transformation
+
+![AWS DMS Tasks - Create Task (Table Mappings Transform 2) ](images/step/aws_dms_tasks/create-task-5.png)
+
+\newpage
+
+#### AWS DMS Tasks - Add Third Transformation
+
+![AWS DMS Tasks - Create Task (Table Mappings Transform 3) ](images/step/aws_dms_tasks/create-task-6.png)
+
+\newpage
 
 #### AWS DMS Tasks - Create Task (Final)
 
