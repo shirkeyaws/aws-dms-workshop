@@ -55,7 +55,7 @@ You will be prompted to confirm this deletion as shown below, if you are certain
 
 ![Teardown AWS DMS - Delete Source Endpoint](images/teardown/aws_dms/endpoint-source-delete.png)
 
-Next, select the Target Endpoint as shown below -- alson note that the status for the Source Endpoint should now display as **Deleting**.
+Next, select the Target Endpoint as shown below -- also note that the status for the Source Endpoint should now display as **Deleting**.
 
 ![Teardown AWS DMS - Select Target Endpoint](images/teardown/aws_dms/endpoint-target.png)
 
