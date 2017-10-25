@@ -9,7 +9,7 @@ In this step, you will launch a AWS CloudFormation template that will setup the 
 
 To launch this template, use the following link:
 
-> <http://amzn.to/aws-dms-workshop-nosql> (=> <https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=workshop-nosql&templateURL=https://s3-ap-northeast-1.amazonaws.com/aws-dms-workshop/workshop-lab-nosql-mongodb-dynamodb.yaml>)
+> <http://amzn.to/aws-dms-workshop-nosql> (=> <https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=workshop-cfn-nosql&templateURL=https://s3-ap-northeast-1.amazonaws.com/aws-dms-workshop/workshop-lab-nosql-mongodb-dynamodb.yaml>)
 
 ### AWS CloudFormation Stack Selection
 

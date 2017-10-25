@@ -14,7 +14,7 @@ papersize: A4
 mainfont: Amazon Ember
 documentclass: article
 geometry: margin=2cm
-date: "Revised: 2017.10.24"
+date: "Revised: 2017.10.26"
 toc: true
 lot: true
 lof: true
