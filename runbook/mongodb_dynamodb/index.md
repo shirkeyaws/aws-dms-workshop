@@ -43,8 +43,6 @@ intro_dms.md
 setup.md
 setup_key_pair.md
 setup_aws_cfn_stack.md
-setup_appstream.md
-setup_install_db_mgmt.md
 ```
 
 ```include

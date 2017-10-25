@@ -9,7 +9,7 @@ In this step, you will launch a AWS CloudFormation template that will setup the 
 
 To launch this template, use the following link:
 
-> <http://amzn.to/aws-dms-workshop-lab-1> (=> <https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=workshop&templateURL=https://s3-ap-northeast-1.amazonaws.com/aws-dms-workshop/workshop-lab-1.yaml>)
+> <http://amzn.to/aws-dms-workshop-nosql> (=> <https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=workshop-nosql&templateURL=https://s3-ap-northeast-1.amazonaws.com/aws-dms-workshop/workshop-lab-nosql-mongodb-dynamodb.yaml>)
 
 ### AWS CloudFormation Stack Selection
 
@@ -26,19 +26,8 @@ You should now see the following:
 This page displays the settings and parameters for the CloudFormation stack.
 
 - For **KeyPair**, you will need to confirm your Key Pair created earlier (in our example, it is labeled workshop)
-- For **OracleDBPassword** and **PostgresDBPassword**, you will need to enter unique, random passwords. 
-
-> **CAUTION: These database servers will be public facing with no restrictions on source IPv4 address to access them during the life of this CFN template, so please take care to use passwords of sufficient complexity.**
 
 ![AWS CloudFormation: Settings Overview](images/setup/aws_cfn_stack/params-all.png)
-
-![AWS CloudFormation: Stack Name](images/setup/aws_cfn_stack/stack-name.png)
-
-![AWS CloudFormation: Key Pair](images/setup/aws_cfn_stack/params-key-pair.png)
-
-![AWS CloudFormation: Oracle](images/setup/aws_cfn_stack/params-oracle.png)
-
-![AWS CloudFormation: Postgres](images/setup/aws_cfn_stack/params-postgres.png)
 
 Once you have confirmed the settings, click the **Next** button on the bottom of the page to continue.
 
@@ -66,7 +55,7 @@ Click the **Create** button on the bottom of the page to continue.
 
 ### AWS CloudFormation Stack: List Stacks
 
-You should now see a list of any existing CloudFormation templates for this region in your account, and the new CloudFormation stack called **workshop** should now appear in your console. 
+You should now see a list of any existing CloudFormation templates for this region in your account, and the new CloudFormation stack called **workshop** should now appear in your console.
 
 ![AWS CloudFormation Stack: List Stacks](images/setup/aws_cfn_stack/list.png)
 
