@@ -2,20 +2,22 @@
 
 The following link will display all **DMS Tasks** in this region
 
-http://amzn.to/aws-tokyo-dms-tasks
+> <http://amzn.to/aws-tokyo-dms-tasks>
 (=> <https://ap-northeast-1.console.aws.amazon.com/dms/home?region=ap-northeast-1#tasks:>)
 
 #### AWS DMS Tasks -- List All
 
 You should now see the following:
 
-![AWS DMS Tasks - Create Task ](images/step/aws_dms_tasks/list-tasks.png)
+![AWS DMS Tasks - List Tasks](images/step/aws_dms_tasks/list-tasks.png)
 
 #### AWS DMS Tasks - Create New
 
-![AWS DMS Tasks - Create Task ](images/step/aws_dms_tasks/create-task-1.png)
+You will now create a new AWS DMS Task by clicking the **Create Task** button, which will display the following page:
 
-Enter the following data:
+![AWS DMS Tasks - Create Task (Detail)](images/step/aws_dms_tasks/create-task-1.png)
+
+Within this page, you will enter the following data:
 
 - **Task name**: dms-workshop-task-oracle2postgres
 - **Replication instance**: (defaults to **DMS Replication Instance** you created earlier)
@@ -24,9 +26,9 @@ Enter the following data:
 - **Migration type**: Migrate existing data and replicate ongoing changes
 - **Start task on create**: (leave this checked)
 
-![AWS DMS Tasks - Create Task (Continued) ](images/step/aws_dms_tasks/create-task-2.png)
+![AWS DMS Tasks - Create Task (Continued)](images/step/aws_dms_tasks/create-task-2.png)
 
-Enter the following data:
+Continue by entering the following data:
 
 - **Target table preparation mode**: Truncate
 - **Stop task after full load completes**: Don't stop
@@ -38,25 +40,33 @@ Enter the following data:
 
 #### AWS DMS Tasks - Add Selection Criteria
 
-![AWS DMS Tasks - Create Task (Table Mappings Selection Criteria) ](images/step/aws_dms_tasks/create-task-3.png)
+Add the following selection criteria, as shown below:
+
+![AWS DMS Tasks - Add Selection Criteria](images/step/aws_dms_tasks/create-task-3.png)
 
 \newpage
 
 #### AWS DMS Tasks - Add First Transformation
 
-![AWS DMS Tasks - Create Task (Table Mappings Transform 1) ](images/step/aws_dms_tasks/create-task-4.png)
+You will now add your first transformation rule to transform data during migration. Click the **Add transformation rule** link, filling the information shown below before clicking the **Add tranformation rule** button to save the transformation.
+
+![AWS DMS Tasks - Add First Transformation](images/step/aws_dms_tasks/create-task-4.png)
 
 \newpage
 
 #### AWS DMS Tasks - Add Second Transformation
 
-![AWS DMS Tasks - Create Task (Table Mappings Transform 2) ](images/step/aws_dms_tasks/create-task-5.png)
+You will add your second transformation rule to transform data during migration. Click the **Add transformation rule** link, filling the information shown below before clicking the **Add tranformation rule** button to save the transformation.
+
+![AWS DMS Tasks - Add Second Transformation](images/step/aws_dms_tasks/create-task-5.png)
 
 \newpage
 
 #### AWS DMS Tasks - Add Third Transformation
 
-![AWS DMS Tasks - Create Task (Table Mappings Transform 3) ](images/step/aws_dms_tasks/create-task-6.png)
+You will now add your final transformation rule to transform data during migration. Click the **Add transformation rule** link, filling the information shown below before clicking the **Add tranformation rule** button to save the transformation.
+
+![AWS DMS Tasks - Add Third Transformation](images/step/aws_dms_tasks/create-task-6.png)
 
 \newpage
 
@@ -64,11 +74,11 @@ Enter the following data:
 
 Review the information and click the **Create Task** button to continue.
 
-![AWS DMS Tasks - Create Task (Final) ](images/step/aws_dms_tasks/create-task-7.png)
+![AWS DMS Tasks - Create Task (Final)](images/step/aws_dms_tasks/create-task-7.png)
 
 You will now see the new DMS Task listed with a status of Creating, then Starting, then Running, as shown below
 
-![AWS DMS Tasks - List Tasks (Updated) ](images/step/aws_dms_tasks/list-tasks-status-starting.png)
+![AWS DMS Tasks - List Tasks (Updated)](images/step/aws_dms_tasks/list-tasks-status-starting.png)
 
 ---
 

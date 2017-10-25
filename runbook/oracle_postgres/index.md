@@ -68,6 +68,8 @@ step_aws_dms_error_supp_log.md
 
 ```include
 teardown.md
-teardown_aws_cfn_stack.md
 teardown_aws_dms.md
+teardown_aws_cfn_stack.md
+teardown_key_pair.md
+conclusion.md
 ```
