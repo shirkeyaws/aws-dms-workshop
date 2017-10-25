@@ -49,12 +49,10 @@ setup_install_db_mgmt.md
 
 ```include
 steps.md
+step_aws_dms_role.md
 step_aws_dms_repl_inst.md
 step_aws_dms_endpoint.md
 step_aws_dms_task.md
-step_aws_dms_troubleshoot.md
-step_aws_dms_error_trunc.md
-step_aws_dms_error_supp_log.md
 ```
 
 ```include

@@ -30,7 +30,7 @@ PANDOC_PDF_OPTIONS=--template ../shared/default.latex
 .PHONY: all clean
 
 all : clean $(EXPORTED_DOCS)
-	- cp $(EXPORTED_DOCS) ../../bucket/runbook_oracle_postgres.pdf
+	- cp $(EXPORTED_DOCS) ../../bucket/runbook_sql_oracle_postgres.pdf
 	- pushd ../../bucket/ && make all && popd
 
 clean:
