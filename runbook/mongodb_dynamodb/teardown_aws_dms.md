@@ -20,7 +20,7 @@ First, you will delete the existing AWS DMS Task associated with this workshop. 
 > <http://amzn.to/aws-tokyo-dms-tasks>
 (=> <https://ap-northeast-1.console.aws.amazon.com/dms/home?region=ap-northeast-1#tasks:>)
 
-You should see a lit of all DMS Tasks in this region. Locate the DMS Task created earlier during this workshop. The default name for the Task created during this workshop was **dms-workshop-task-oracle2postgres**.
+You should see a list of all DMS Tasks in this region. Locate the DMS Task created earlier during this workshop. The default name for the Task created during this workshop was **dms-workshop-task-oracle2postgres**.
 
 Select the task and, if it is running, click the **Stop** button.
 
@@ -40,26 +40,14 @@ Next, you can now delete the DMS Endpoints that were created earlier in this lab
 
 You should now see a list of all DMS Endpoints in this region. There will be two Endpoints to delete, one for the Source and one for the Target. The default names for this workshop are:
 
-- Source: **dms-workshop-oracle**
-- Target: **dms-workshop-postgres**
+- Source: **dms-workshop-mongodb**
+- Target: **dms-workshop-dynamodb**
 
 If you used those defaults, your page should look like the following:
 
 ![Teardown AWS DMS - List All Endpoints](images/teardown/aws_dms/endpoint-all.png)
 
-Select the Source Endpoint as shown below, then click the **Delete** button.
-
-![Teardown AWS DMS - Select Source Endpoint](images/teardown/aws_dms/endpoint-source.png)
-
-You will be prompted to confirm this deletion as shown below, if you are certain this is the correct Endpoint from the workshop, then click the **Delete** button.
-
-![Teardown AWS DMS - Delete Source Endpoint](images/teardown/aws_dms/endpoint-source-delete.png)
-
-Next, select the Target Endpoint as shown below -- also note that the status for the Source Endpoint should now display as **Deleting**.
-
-![Teardown AWS DMS - Select Target Endpoint](images/teardown/aws_dms/endpoint-target.png)
-
-Once selected, repeat the process as above, clicking the **Delete** button and confirming that you wish to delete the Target Endpoint from this workshop. Finally, you will see the following page:
+**Delete** both Source and Target endpoints, confirming that you wish to delete. Finally, you will see the following page:
 
 ![Teardown AWS DMS - Endpoints Deleted](images/teardown/aws_dms/endpoint-deleted.png)
 
@@ -76,24 +64,13 @@ To delete the DMS replication instances for this workshop, we will first view th
 > <http://amzn.to/aws-tokyo-dms-instances>
 (=> <https://ap-northeast-1.console.aws.amazon.com/dms/home?region=ap-northeast-1#replication-instances:>)
 
-You should see a lit of all DMS Replication Instances in this region.
-
-![Teardown AWS DMS - Replication Instance List](images/teardown/aws_dms/repl-inst-list.png)
-
-Locate the DMS Replication Instance created earlier during this workshop. The default name for the Replication Instance created during this workshop was **dms-workshop-oracle2postgres-repl**.
+Locate the DMS Replication Instance created earlier during this workshop. The default name for the Replication Instance created during this workshop was **dms-workshop-mongodb2dynamodb-repl**.
 
 You will now select your workshop DMS Replication Instance, clicking the **Delete** button to proceed:
 
-![Teardown AWS DMS - Replication Instance Selected](images/teardown/aws_dms/repl-inst-selected.png)
-
-You will receive the following confirmation:
-
-![Teardown AWS DMS - Replication Instance Confirm Deletion](images/teardown/aws_dms/repl-inst-delete.png)
-
 Click the **Delete** button again if you certain this is the correct DMS Replication Instance you set up earlier in the workshop.
 
-The status of the Replication Instance will now show as **Deleted**:
-![Teardown AWS DMS - Replication Instance Deleted](images/teardown/aws_dms/repl-inst-deleted.png)
+The status of the Replication Instance will now show as **Deleted**
 
 ---
 
