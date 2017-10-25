@@ -634,7 +634,7 @@ $endif$
 \par
 \noindent
 
-{ \setstretch{1.4}
+{ \setstretch{1.2}
 \vfill
 \noindent {\huge \textbf{\textsf{$title$}}}
 $if(subtitle)$

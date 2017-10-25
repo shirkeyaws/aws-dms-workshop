@@ -1,6 +1,6 @@
 ---
-title: "AWS Database Migration Services Lab"
-subtitle: "SQL Lab: Oracle to PostgreSQL Migration"
+title: "AWS Database Migration Services SQL Lab Runbook"
+subtitle: "Oracle to PostgreSQL Migration"
 author: [Amazon Web Services]
 institute: "Amazon Web Services"
 abstract: "This document is © 2017, Amazon Web Services, Inc. or its Affiliates. All rights reserved.

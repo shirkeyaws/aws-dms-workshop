@@ -1,6 +1,6 @@
 ---
-title: "AWS Database Migration Services Lab"
-subtitle: "NoSQL Lab: MongoDB to DynamoDB Migration"
+title: "AWS Database Migration Services NoSQL Lab Runbook"
+subtitle: "MongoDB to DynamoDB Migration"
 author: [Amazon Web Services]
 institute: "Amazon Web Services"
 abstract: "This document is © 2017, Amazon Web Services, Inc. or its Affiliates. All rights reserved."
@@ -37,7 +37,6 @@ header-includes:
 intro.md
 intro_objective.md
 intro_dms.md
-intro_sct.md
 ```
 
 ```include
@@ -45,7 +44,6 @@ setup.md
 setup_key_pair.md
 setup_aws_cfn_stack.md
 setup_appstream.md
-setup_jdbc_driver.md
 setup_install_db_mgmt.md
 ```
 

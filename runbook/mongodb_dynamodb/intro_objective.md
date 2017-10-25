@@ -7,8 +7,6 @@ In this lab, you will be performing a database migration from a MongoDB source t
 - Create EC2 Key Pair
 - Launch AWS CloudFormation Stack
 - Access Amazon AppStream 2.0 Tools
-- OPTIONAL: download the JDBC drivers locally
-- OPTIONAL: install database management tools locally
 
 ### Lab Steps
 
