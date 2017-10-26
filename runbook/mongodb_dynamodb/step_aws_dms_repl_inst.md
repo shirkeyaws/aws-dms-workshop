@@ -33,7 +33,7 @@ using the following values:
 - **Description**: AWS DMS Workshop for NoSQL
 - **Instance class**: dms.t2.medium
 - **Replication engine version**: (leave as default)
-- **VPC**: (select VPC created by CloudFormation stack, which should be named **workshop**)
+- **VPC**: (select VPC created by CloudFormation stack, which should be named **workshop-cfn-nosql**)
 
 > **CAUTION: The replication instance created here will continue to run until specifically deleted -- the steps for teardown are located in this document at [Teardown: AWS DMS Resources](#teardown-aws-dms-resources)**
 

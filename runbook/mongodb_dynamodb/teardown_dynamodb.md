@@ -1,6 +1,6 @@
 ## Teardown DynamoDB
 
-> **CAUTION**: It is critical that you delete your DynamoDB table to avoid incurring costs
+> **CAUTION**: It is critical that you delete your DynamoDB tables to avoid incurring costs -- **the currently provisioned DynamoDB tables will cost approximately USD$1400/month!**
 
 ![Teardown DynamoDB: DynamoDB Console](images/teardown/dynamodb/1.png)
 
