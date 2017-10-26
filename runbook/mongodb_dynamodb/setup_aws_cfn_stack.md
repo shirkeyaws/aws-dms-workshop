@@ -25,6 +25,8 @@ You should now see the following:
 
 This page displays the settings and parameters for the CloudFormation stack.
 
+- For **Stack name**, you can use the default of **workshop-cfn-nosql**
+- For **KeyName**, set to the name of the Key Pair you created earlier (default is **workshop**)
 - For **KeyPair**, you will need to confirm your Key Pair created earlier (in our example, it is labeled workshop)
 
 ![AWS CloudFormation: Settings Overview](images/setup/aws_cfn_stack/params-all.png)
