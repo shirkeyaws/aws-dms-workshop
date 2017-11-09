@@ -30,7 +30,7 @@ PANDOC_PDF_OPTIONS=--template ../shared/default.latex
 .PHONY: all clean
 
 all : clean $(EXPORTED_DOCS)
-	- cp $(EXPORTED_DOCS) ../../bucket/runbook_nosql_mongodb_dynamodb.pdf
+	- mv $(EXPORTED_DOCS) ../../bucket/runbook_nosql_mongodb_dynamodb.pdf
 	- pushd ../../bucket/ && make all && popd
 
 clean:
